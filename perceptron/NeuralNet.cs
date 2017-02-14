@@ -139,7 +139,7 @@ namespace perceptron
 
 		public void printWeight(double[] weights)
 		{
-			Utils.Write("w = [");
+			Utils.WriteLine("w = [");
 			for (int i = 0; i < weights.Length; i++) {
 				Utils.WriteLine("{0:F8} ", weights[i]);
 			}
