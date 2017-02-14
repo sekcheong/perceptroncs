@@ -47,6 +47,7 @@ namespace perceptron
 				Utils.WriteLine("Accuracy for tuning set: {0:F4}", tuneAcc);
 				Utils.WriteLine("");
 				
+
 				Utils.WriteLine("{0,-10} {1,-10} {2,-10} {3,6}", "Name", "Predicted", "Actual", "Error");
 				Utils.WriteLine("-------------------------------------------");
 
@@ -62,8 +63,13 @@ namespace perceptron
 
 				Utils.WriteLine("-------------------------------------------");
 
-				double testAcc = net.accuracy(w, test.getExamples());
-				Utils.WriteLine("Accuracy for test set: {0:F4}",testAcc);
+				double testAcc = net.accuracy(w, test.getExamples());				
+				Utils.WriteLine("Correctly classified : " + net.correctCount());
+				Utils.WriteLine("Miss classified      : " + (test.getExamples().Count - net.correctCount()));
+				Utils.WriteLine("Total test samples   : " + test.getExamples().Count);
+				Utils.WriteLine("Accuracy for test set: {0:F4}", testAcc);
+
+				Utils.WriteLine("");
 				Utils.WriteLine("Learned weights:");
 				net.printWeight(w);
 

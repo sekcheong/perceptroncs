@@ -10,10 +10,10 @@ namespace perceptron
 	{
 		public double eta = 0.0001;
 		public double targetAccuracy = 0.760;
+		private int _correct;
 
 		public double[] initialWeights(Instance instance)
 		{
-
 			int size = instance.x.Length;
 			double w = Math.Sqrt(1 / ((double)size));
 
@@ -29,6 +29,7 @@ namespace perceptron
 			return weights;
 		}
 
+		
 		public double dotProduct(double[] w, double[] x)
 		{
 			double result = 0;
@@ -38,14 +39,6 @@ namespace perceptron
 			return result;
 		}
 
-		public void printWeight(double[] weights)
-		{
-			Utils.Write("w = [");
-			for (int i = 0; i < weights.Length; i++) {
-				Utils.WriteLine("{0:F8} ", weights[i]);
-			}
-			Utils.WriteLine("]");
-		}
 
 		private double signum(double f)
 		{
@@ -56,6 +49,7 @@ namespace perceptron
 			return f;
 		}
 
+		
 		public void train(double[] weights, List<Instance> examples, List<Instance> tune)
 		{
 			Instance inst;
@@ -112,26 +106,44 @@ namespace perceptron
 			}
 		}
 
+		
 		public double accuracy(double[] weights, List<Instance> test)
 		{
-			int correct = 0;
+			_correct = 0;
 			for (int i = 0; i < test.Count; i++) {
 				Instance inst = test[i];
 				double y_hat = predict(weights, inst);
 				double y = (inst.label == 0) ? -1.0 : 1.0;
 				if (y == y_hat) {
-					correct++;
+					_correct++;
 				}
 			}
-			double rate = ((double)correct) / test.Count;
+			double rate = ((double)_correct) / test.Count;
 			return rate;
 		}
 
+		
+		public int correctCount()
+		{
+			return this._correct;
+		}
+
+		
 		public double predict(double[] weights, Instance instance)
 		{
 			double y_hat = dotProduct(weights, instance.x);
 			double fx = signum(y_hat);
 			return fx;
+		}
+
+
+		public void printWeight(double[] weights)
+		{
+			Utils.Write("w = [");
+			for (int i = 0; i < weights.Length; i++) {
+				Utils.WriteLine("{0:F8} ", weights[i]);
+			}
+			Utils.WriteLine("]");
 		}
 
 	}
