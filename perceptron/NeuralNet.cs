@@ -40,11 +40,11 @@ namespace perceptron
 
 		public void printWeight(double[] weights)
 		{
-			Console.Write("w = [");
+			Utils.Write("w = [");
 			for (int i = 0; i < weights.Length; i++) {
-				Console.WriteLine(string.Format("{0:N4}%", weights[i]));
+				Utils.WriteLine("{0:F8} ", weights[i]);
 			}
-			Console.WriteLine("]");
+			Utils.WriteLine("]");
 		}
 
 		private double signum(double f)
@@ -67,10 +67,10 @@ namespace perceptron
 
 			double maxAcc = 0;
 
-			int maxloop = 500;
+			int maxloop = 100;
 			int p = 0;
 			int q = 0;
-			//bool stop = false;
+			bool stop = false;
 
 			// save the best weights we have seen so far
 			double[] bestWeights = new double[weights.Length];
@@ -98,8 +98,13 @@ namespace perceptron
 						q = i;
 						maxAcc = acc;
 						bestWeights = weights;
-					}
+						if (maxAcc > this.targetAccuracy) {
+							stop = true;
+							break;					
+						}
+					}					
 				}
+				if (stop) break;
 			}
 
 			for (int i = 0; i < weights.Length; i++) {
