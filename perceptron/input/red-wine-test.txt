@@ -23,10 +23,6 @@
 // The number of features:
 20
 
-// Next are the feature names followed by a dash and then the legal values of this feature
-// In the CS 540 programming HWs related to decision trees, we will assume that all features have
-// two possible values, though they might have names other than the T and F used here (eg,
-// might have: "size - small big" in some other testbed used during grading).
 
 fixedAcidityGt47 - T F
 
